@@ -1,0 +1,9 @@
+c:\users\lovachev\documents\visual studio 2010\Projects\IndexCounter\IndexCounter\bin\Debug\IndexCounter.exe
+c:\users\lovachev\documents\visual studio 2010\Projects\IndexCounter\IndexCounter\bin\Debug\IndexCounter.pdb
+c:\users\lovachev\documents\visual studio 2010\Projects\IndexCounter\IndexCounter\obj\x86\Debug\IndexCounter.csprojResolveAssemblyReference.cache
+c:\users\lovachev\documents\visual studio 2010\Projects\IndexCounter\IndexCounter\obj\x86\Debug\IndexCounter.Form1.resources
+c:\users\lovachev\documents\visual studio 2010\Projects\IndexCounter\IndexCounter\obj\x86\Debug\IndexCounter.Properties.Resources.resources
+c:\users\lovachev\documents\visual studio 2010\Projects\IndexCounter\IndexCounter\obj\x86\Debug\IndexCounter.csproj.GenerateResource.Cache
+c:\users\lovachev\documents\visual studio 2010\Projects\IndexCounter\IndexCounter\obj\x86\Debug\IndexCounter.exe
+c:\users\lovachev\documents\visual studio 2010\Projects\IndexCounter\IndexCounter\obj\x86\Debug\IndexCounter.pdb
+C:\Users\lovachev\documents\visual studio 2010\Projects\IndexCounter\IndexCounter\bin\Debug\RiskCalculatorLib.dll
