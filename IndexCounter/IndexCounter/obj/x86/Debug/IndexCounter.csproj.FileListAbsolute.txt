@@ -7,3 +7,11 @@ c:\users\lovachev\documents\visual studio 2010\Projects\IndexCounter\IndexCounte
 c:\users\lovachev\documents\visual studio 2010\Projects\IndexCounter\IndexCounter\obj\x86\Debug\IndexCounter.exe
 c:\users\lovachev\documents\visual studio 2010\Projects\IndexCounter\IndexCounter\obj\x86\Debug\IndexCounter.pdb
 C:\Users\lovachev\documents\visual studio 2010\Projects\IndexCounter\IndexCounter\bin\Debug\RiskCalculatorLib.dll
+C:\Users\Sergey\Desktop\IndexCounter\IndexCounter\IndexCounter\obj\x86\Debug\IndexCounter.exe
+C:\Users\Sergey\Desktop\IndexCounter\IndexCounter\IndexCounter\obj\x86\Debug\IndexCounter.pdb
+C:\Users\Sergey\Desktop\IndexCounter\IndexCounter\IndexCounter\bin\Debug\IndexCounter.exe
+C:\Users\Sergey\Desktop\IndexCounter\IndexCounter\IndexCounter\bin\Debug\IndexCounter.pdb
+C:\Users\Sergey\Desktop\IndexCounter\IndexCounter\IndexCounter\obj\x86\Debug\IndexCounter.csprojResolveAssemblyReference.cache
+C:\Users\Sergey\Desktop\IndexCounter\IndexCounter\IndexCounter\obj\x86\Debug\IndexCounter.Form1.resources
+C:\Users\Sergey\Desktop\IndexCounter\IndexCounter\IndexCounter\obj\x86\Debug\IndexCounter.Properties.Resources.resources
+C:\Users\Sergey\Desktop\IndexCounter\IndexCounter\IndexCounter\obj\x86\Debug\IndexCounter.csproj.GenerateResource.Cache

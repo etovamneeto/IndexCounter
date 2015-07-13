@@ -13,7 +13,7 @@ using Excel = Microsoft.Office.Interop.Excel;
 namespace IndexCounter
 {
     public partial class Form1 : Form
-    {   
+    {
         public Form1()
         {
             InitializeComponent();
@@ -23,16 +23,17 @@ namespace IndexCounter
             this.Size = new Size(300, 220);
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
-            
+
             //Задание стартовых параметров модели
             this.Text = "Index Calculator";
             minAgeBox.Text = "20";
             maxAgeBox.Text = "70";
             manRB.Checked = true;
             externalRB.Checked = true;
+            larRB.Checked = true;
         }
 
-        
+
         private void Form1_Load(object sender, EventArgs e)
         {
             //Задание путей для молуля калькулятора
@@ -48,14 +49,25 @@ namespace IndexCounter
             String sheetName = "";//Задание имени страницы
             if (manRB.Checked)
             {
+                womanRB.Checked = false;
                 sex = RiskCalculator.SEX_MALE;
                 sexName = "Мужчины";
-            }   
+            }
             else if (womanRB.Checked)
             {
+                manRB.Checked = false;
                 sex = RiskCalculator.SEX_FEMALE;
                 sexName = "Женщины";
             }
+
+            //if (larRB.Checked)
+            //{
+            //    detRB.Checked = false;
+            //}
+            //else if (detRB.Checked)
+            //{
+            //    larRB.Checked = false;
+            //}
 
             //Задание весовых коэффициентов для тканей (в нашем случае учитывается только влияние на лёгкие)
             double wLung = 0.12;
@@ -79,33 +91,58 @@ namespace IndexCounter
                 listOfDoseHistories[i][0].AgeAtExposure = Convert.ToInt16(Convert.ToInt32(minAgeBox.Text) + i);
                 listOfDoseHistories[i][0].AllSolidDoseInmGy = 1000;
                 listOfDoseHistories[i][0].LeukaemiaDoseInmGy = 1000;
-                listOfDoseHistories[i][0].LungDoseInmGy = 1000/wLung;
+                listOfDoseHistories[i][0].LungDoseInmGy = 1000 / wLung;
             }
 
             //Создание словаря, где ключ - возраст, а значение - LAR
-            Dictionary<short, double> ageLar = new Dictionary<short, double>();
+            Dictionary<short, double> resultList = new Dictionary<short, double>();
+            bool isIncidence = false;
             for (int i = 0; i <= ages; i++)
             {
                 RiskCalculator.DoseHistoryRecord[] record = listOfDoseHistories[i];
                 if (externalRB.Checked)
                 {
                     RiskCalculatorLib.RiskCalculator calculator = new RiskCalculatorLib.RiskCalculator(sex, listOfDoseHistories[i][0].AgeAtExposure, ref record, true);
-                    ageLar.Add(listOfDoseHistories[i][0].AgeAtExposure, calculator.getLAR(false, true).AllCancers);
+                    //if (larRB.Checked)
+                    {
+                        resultList.Add(listOfDoseHistories[i][0].AgeAtExposure, calculator.getLAR(false, true).AllCancers);
+                    }
+                    //else if (detRB.Checked)
+                    //{
+                    //    calculator.createEARSamples(1, ref isIncidence);
+                    //    resultList.Add(listOfDoseHistories[i][0].AgeAtExposure, calculator.getDetriment().Value.AllCancers);
+                    //}
                     sheetName = sexName + " Внешнее";
                 }
                 else if (internalRB.Checked)
                 {
                     RiskCalculatorLib.RiskCalculator calculator = new RiskCalculatorLib.RiskCalculator(sex, listOfDoseHistories[i][0].AgeAtExposure, ref record, true);
-                    ageLar.Add(listOfDoseHistories[i][0].AgeAtExposure, calculator.getLAR(false, true).Lung);
+                    //if (larRB.Checked)
+                    {
+                        resultList.Add(listOfDoseHistories[i][0].AgeAtExposure, calculator.getLAR(false, true).Lung);
+                    }
+                    //else if (detRB.Checked)
+                    //{
+                    //    calculator.createEARSamples(1, ref isIncidence);
+                    //    resultList.Add(listOfDoseHistories[i][0].AgeAtExposure, calculator.getDetriment().Value.Lung);
+                    //}
                     sheetName = sexName + " Внутреннее";
                 }
             }
-            List<short> keyList = new List<short>(ageLar.Keys);//Список ключей из словаря
+            
+            //RiskCalculator.DoseHistoryRecord[] recordTest = listOfDoseHistories[0];
+            //RiskCalculatorLib.RiskCalculator calculator = new RiskCalculatorLib.RiskCalculator(sex, listOfDoseHistories[0][0].AgeAtExposure, ref recordTest, true);          
+            //bool var = false;
+            //calculator.createEARSamples(1, ref var);
+            //RiskCalculator.ValueBounds<RiskCalculator.LAR> value = calculator.getDetriment();
+            //testTextBox.Text = value.Value.AllCancers.ToString();
+
+            List<short> keyList = new List<short>(resultList.Keys);//Список ключей из словаря
 
             //Вывод в Excel-файл
             //Инициализация Excel-файла
             Excel.Application excelApp = new Excel.Application();
-            excelApp.Visible = true;
+            //excelApp.Visible = true;
             excelApp.DisplayAlerts = true;
             excelApp.StandardFont = "Times-New-Roman";
             excelApp.StandardFontSize = 12;
@@ -129,18 +166,58 @@ namespace IndexCounter
             excelCells.VerticalAlignment = Excel.Constants.xlCenter;
             excelCells.HorizontalAlignment = Excel.Constants.xlCenter;
             excelCells.Borders.Weight = Excel.XlBorderWeight.xlThick;
-            excelCells.Value2 = "LAR";
+            //if (larRB.Checked)
+                excelCells.Value2 = "LAR";
+            //else if (detRB.Checked)
+            //    excelCells.Value2 = "Det";
 
             //Вывод в столбцы
-            for (int i = 2; i <= ageLar.Count + 1; i++)
+            for (int i = 2; i <= resultList.Count + 1; i++)
             {
                 excelCells = (Excel.Range)excelWorksheet.Cells[i, "A"];
                 excelCells.Value2 = keyList[i - 2];
                 excelCells.Borders.ColorIndex = 1;
                 excelCells = (Excel.Range)excelWorksheet.Cells[i, "B"];
-                excelCells.Value2 = ageLar[keyList[i - 2]];
+                excelCells.Value2 = resultList[keyList[i - 2]];
                 excelCells.Borders.ColorIndex = 1;
             }
+
+            char[] timeNameBuffer = DateTime.Now.ToString().ToCharArray();
+            for (int i = 0; i < timeNameBuffer.Length; i++)
+            {
+                if (timeNameBuffer[i] == ':')
+                    timeNameBuffer[i] = '-';
+            }
+
+            String saveAs = "";
+            //if (larRB.Checked)
+            {
+                if (externalRB.Checked)
+                    saveAs = sexName + " внешнее (LAR)";
+                if (internalRB.Checked)
+                    saveAs = sexName + " внутреннее (LAR)";
+            }
+            //if (detRB.Checked)
+            //{
+            //    if (externalRB.Checked)
+            //        saveAs = sexName + " внешнее (Det)";
+            //    if (internalRB.Checked)
+            //        saveAs = sexName + " внутреннее (Det)";
+            //}
+
+            excelWorkbook.SaveAs(@Path.GetDirectoryName(Application.ExecutablePath) + "\\" + saveAs + "(" + new string(timeNameBuffer) + ").xlsx",  //object Filename
+                    Excel.XlFileFormat.xlOpenXMLWorkbook,                       //object FileFormat
+                    Type.Missing,                       //object Password 
+                    Type.Missing,                       //object WriteResPassword  
+                    Type.Missing,                       //object ReadOnlyRecommended
+                    Type.Missing,                       //object CreateBackup
+                    Excel.XlSaveAsAccessMode.xlNoChange,//XlSaveAsAccessMode AccessMode
+                    Type.Missing,                       //object ConflictResolution
+                    Type.Missing,                       //object AddToMru 
+                    Type.Missing,                       //object TextCodepage
+                    Type.Missing,                       //object TextVisualLayout
+                    Type.Missing);                      //object Local
+            excelApp.Quit();
         }
 
         private void minAgeBox_TextChanged(object sender, EventArgs e)
@@ -179,6 +256,16 @@ namespace IndexCounter
         }
 
         private void yearRateComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void larRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void detRadioButton_CheckedChanged(object sender, EventArgs e)
         {
 
         }

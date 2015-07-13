@@ -39,6 +39,9 @@
             this.internalRB = new System.Windows.Forms.RadioButton();
             this.sexGroupBox = new System.Windows.Forms.GroupBox();
             this.radGroupBox = new System.Windows.Forms.GroupBox();
+            this.larRB = new System.Windows.Forms.RadioButton();
+            this.detRB = new System.Windows.Forms.RadioButton();
+            this.testTextBox = new System.Windows.Forms.TextBox();
             this.sexGroupBox.SuspendLayout();
             this.radGroupBox.SuspendLayout();
             this.SuspendLayout();
@@ -81,7 +84,7 @@
             // maxAge
             // 
             this.maxAge.AutoSize = true;
-            this.maxAge.Location = new System.Drawing.Point(150, 30);
+            this.maxAge.Location = new System.Drawing.Point(149, 30);
             this.maxAge.Name = "maxAge";
             this.maxAge.Size = new System.Drawing.Size(130, 13);
             this.maxAge.TabIndex = 4;
@@ -158,11 +161,45 @@
             this.radGroupBox.Text = "Облучение";
             this.radGroupBox.Enter += new System.EventHandler(this.radGroupBox_Enter);
             // 
+            // larRB
+            // 
+            this.larRB.AutoSize = true;
+            this.larRB.Location = new System.Drawing.Point(12, 10);
+            this.larRB.Name = "larRB";
+            this.larRB.Size = new System.Drawing.Size(46, 17);
+            this.larRB.TabIndex = 12;
+            this.larRB.TabStop = true;
+            this.larRB.Text = "LAR";
+            this.larRB.UseVisualStyleBackColor = true;
+            this.larRB.CheckedChanged += new System.EventHandler(this.larRadioButton_CheckedChanged);
+            // 
+            // detRB
+            // 
+            this.detRB.AutoSize = true;
+            this.detRB.Location = new System.Drawing.Point(152, 10);
+            this.detRB.Name = "detRB";
+            this.detRB.Size = new System.Drawing.Size(42, 17);
+            this.detRB.TabIndex = 13;
+            this.detRB.TabStop = true;
+            this.detRB.Text = "Det";
+            this.detRB.UseVisualStyleBackColor = true;
+            this.detRB.CheckedChanged += new System.EventHandler(this.detRadioButton_CheckedChanged);
+            // 
+            // testTextBox
+            // 
+            this.testTextBox.Location = new System.Drawing.Point(12, 147);
+            this.testTextBox.Name = "testTextBox";
+            this.testTextBox.Size = new System.Drawing.Size(70, 20);
+            this.testTextBox.TabIndex = 14;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(290, 189);
+            this.Controls.Add(this.testTextBox);
+            this.Controls.Add(this.detRB);
+            this.Controls.Add(this.larRB);
             this.Controls.Add(this.radGroupBox);
             this.Controls.Add(this.sexGroupBox);
             this.Controls.Add(this.maxAge);
@@ -195,6 +232,9 @@
         private System.Windows.Forms.RadioButton internalRB;
         private System.Windows.Forms.GroupBox sexGroupBox;
         private System.Windows.Forms.GroupBox radGroupBox;
+        private System.Windows.Forms.RadioButton larRB;
+        private System.Windows.Forms.RadioButton detRB;
+        private System.Windows.Forms.TextBox testTextBox;
     }
 }
 

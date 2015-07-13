@@ -39,7 +39,7 @@
     </Reference>
     <Reference Include="RiskCalculatorLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\DDRF 2\RiskCalculatorLib.dll</HintPath>
+      <HintPath>bin\Debug\RiskCalculatorLib.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
