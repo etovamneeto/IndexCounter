@@ -94,130 +94,130 @@ namespace IndexCounter
                 listOfDoseHistories[i][0].LungDoseInmGy = 1000 / wLung;
             }
 
+            RiskCalculator.DoseHistoryRecord[] recordTest = listOfDoseHistories[0];
+            RiskCalculatorLib.RiskCalculator calculator = new RiskCalculatorLib.RiskCalculator(sex, listOfDoseHistories[0][0].AgeAtExposure, ref recordTest, true);
+            bool var = false;
+            //calculator.createEARSamples(1, ref var);
+            calculator.createEARSamples(0, ref var);// - правильный вариант
+            RiskCalculator.ValueBounds<RiskCalculator.LAR> value = calculator.getDetriment();
+            testTextBox.Text = value.Value.AllCancers.ToString();
+
             //Создание словаря, где ключ - возраст, а значение - LAR
             Dictionary<short, double> resultList = new Dictionary<short, double>();
             bool isIncidence = false;
-            for (int i = 0; i <= ages; i++)
-            {
-                RiskCalculator.DoseHistoryRecord[] record = listOfDoseHistories[i];
-                if (externalRB.Checked)
-                {
-                    RiskCalculatorLib.RiskCalculator calculator = new RiskCalculatorLib.RiskCalculator(sex, listOfDoseHistories[i][0].AgeAtExposure, ref record, true);
-                    //if (larRB.Checked)
-                    {
-                        resultList.Add(listOfDoseHistories[i][0].AgeAtExposure, calculator.getLAR(false, true).AllCancers);
-                    }
-                    //else if (detRB.Checked)
-                    //{
-                    //    calculator.createEARSamples(1, ref isIncidence);
-                    //    resultList.Add(listOfDoseHistories[i][0].AgeAtExposure, calculator.getDetriment().Value.AllCancers);
-                    //}
-                    sheetName = sexName + " Внешнее";
-                }
-                else if (internalRB.Checked)
-                {
-                    RiskCalculatorLib.RiskCalculator calculator = new RiskCalculatorLib.RiskCalculator(sex, listOfDoseHistories[i][0].AgeAtExposure, ref record, true);
-                    //if (larRB.Checked)
-                    {
-                        resultList.Add(listOfDoseHistories[i][0].AgeAtExposure, calculator.getLAR(false, true).Lung);
-                    }
-                    //else if (detRB.Checked)
-                    //{
-                    //    calculator.createEARSamples(1, ref isIncidence);
-                    //    resultList.Add(listOfDoseHistories[i][0].AgeAtExposure, calculator.getDetriment().Value.Lung);
-                    //}
-                    sheetName = sexName + " Внутреннее";
-                }
-            }
-            
-            //RiskCalculator.DoseHistoryRecord[] recordTest = listOfDoseHistories[0];
-            //RiskCalculatorLib.RiskCalculator calculator = new RiskCalculatorLib.RiskCalculator(sex, listOfDoseHistories[0][0].AgeAtExposure, ref recordTest, true);          
-            //bool var = false;
-            //calculator.createEARSamples(1, ref var);
-            //RiskCalculator.ValueBounds<RiskCalculator.LAR> value = calculator.getDetriment();
-            //testTextBox.Text = value.Value.AllCancers.ToString();
-
-            List<short> keyList = new List<short>(resultList.Keys);//Список ключей из словаря
-
-            //Вывод в Excel-файл
-            //Инициализация Excel-файла
-            Excel.Application excelApp = new Excel.Application();
-            //excelApp.Visible = true;
-            excelApp.DisplayAlerts = true;
-            excelApp.StandardFont = "Times-New-Roman";
-            excelApp.StandardFontSize = 12;
-
-            //Создание рабочей книги с 4 страницами, в которые будет выводиться информация
-            excelApp.Workbooks.Add(Type.Missing);
-            Excel.Workbook excelWorkbook = excelApp.Workbooks[1];
-            excelApp.SheetsInNewWorkbook = 4;
-            Excel.Worksheet excelWorksheet = (Excel.Worksheet)excelWorkbook.Worksheets.get_Item(1);
-            excelWorksheet.Name = sheetName;
-
-            //Описываем ячейку А1 на странице
-            Excel.Range excelCells = excelWorksheet.get_Range("A1");
-            excelCells.VerticalAlignment = Excel.Constants.xlCenter;
-            excelCells.HorizontalAlignment = Excel.Constants.xlCenter;
-            excelCells.Borders.Weight = Excel.XlBorderWeight.xlThick;
-            excelCells.Value2 = "AgeAtExp";
-
-            //Описываем ячейку В1 на странице
-            excelCells = excelWorksheet.get_Range("B1");
-            excelCells.VerticalAlignment = Excel.Constants.xlCenter;
-            excelCells.HorizontalAlignment = Excel.Constants.xlCenter;
-            excelCells.Borders.Weight = Excel.XlBorderWeight.xlThick;
-            //if (larRB.Checked)
-                excelCells.Value2 = "LAR";
-            //else if (detRB.Checked)
-            //    excelCells.Value2 = "Det";
-
-            //Вывод в столбцы
-            for (int i = 2; i <= resultList.Count + 1; i++)
-            {
-                excelCells = (Excel.Range)excelWorksheet.Cells[i, "A"];
-                excelCells.Value2 = keyList[i - 2];
-                excelCells.Borders.ColorIndex = 1;
-                excelCells = (Excel.Range)excelWorksheet.Cells[i, "B"];
-                excelCells.Value2 = resultList[keyList[i - 2]];
-                excelCells.Borders.ColorIndex = 1;
-            }
-
-            char[] timeNameBuffer = DateTime.Now.ToString().ToCharArray();
-            for (int i = 0; i < timeNameBuffer.Length; i++)
-            {
-                if (timeNameBuffer[i] == ':')
-                    timeNameBuffer[i] = '-';
-            }
-
-            String saveAs = "";
-            //if (larRB.Checked)
-            {
-                if (externalRB.Checked)
-                    saveAs = sexName + " внешнее (LAR)";
-                if (internalRB.Checked)
-                    saveAs = sexName + " внутреннее (LAR)";
-            }
-            //if (detRB.Checked)
+            //for (int i = 0; i <= ages; i++)
             //{
+            //    RiskCalculator.DoseHistoryRecord[] record = listOfDoseHistories[i];
             //    if (externalRB.Checked)
-            //        saveAs = sexName + " внешнее (Det)";
-            //    if (internalRB.Checked)
-            //        saveAs = sexName + " внутреннее (Det)";
+            //    {
+            //        RiskCalculatorLib.RiskCalculator calculator = new RiskCalculatorLib.RiskCalculator(sex, listOfDoseHistories[i][0].AgeAtExposure, ref record, true);
+            //        //if (larRB.Checked)
+            //        {
+            //            resultList.Add(listOfDoseHistories[i][0].AgeAtExposure, calculator.getLAR(false, true).AllCancers);
+            //        }
+            //        //else if (detRB.Checked)
+            //        //{
+            //        //    calculator.createEARSamples(1, ref isIncidence);
+            //        //    resultList.Add(listOfDoseHistories[i][0].AgeAtExposure, calculator.getDetriment().Value.AllCancers);
+            //        //}
+            //        sheetName = sexName + " Внешнее";
+            //    }
+            //    else if (internalRB.Checked)
+            //    {
+            //        RiskCalculatorLib.RiskCalculator calculator = new RiskCalculatorLib.RiskCalculator(sex, listOfDoseHistories[i][0].AgeAtExposure, ref record, true);
+            //        //if (larRB.Checked)
+            //        {
+            //            resultList.Add(listOfDoseHistories[i][0].AgeAtExposure, calculator.getLAR(false, true).Lung);
+            //        }
+            //        //else if (detRB.Checked)
+            //        //{
+            //        //    calculator.createEARSamples(1, ref isIncidence);
+            //        //    resultList.Add(listOfDoseHistories[i][0].AgeAtExposure, calculator.getDetriment().Value.Lung);
+            //        //}
+            //        sheetName = sexName + " Внутреннее";
+            //    }
+            //}
+   
+            ////Вывод в Excel-файл
+            //List<short> keyList = new List<short>(resultList.Keys);//Список ключей из словаря
+            ////Инициализация Excel-файла
+            //Excel.Application excelApp = new Excel.Application();
+            ////excelApp.Visible = true;
+            //excelApp.DisplayAlerts = true;
+            //excelApp.StandardFont = "Times-New-Roman";
+            //excelApp.StandardFontSize = 12;
+
+            ////Создание рабочей книги с 4 страницами, в которые будет выводиться информация
+            //excelApp.Workbooks.Add(Type.Missing);
+            //Excel.Workbook excelWorkbook = excelApp.Workbooks[1];
+            //excelApp.SheetsInNewWorkbook = 4;
+            //Excel.Worksheet excelWorksheet = (Excel.Worksheet)excelWorkbook.Worksheets.get_Item(1);
+            //excelWorksheet.Name = sheetName;
+
+            ////Описываем ячейку А1 на странице
+            //Excel.Range excelCells = excelWorksheet.get_Range("A1");
+            //excelCells.VerticalAlignment = Excel.Constants.xlCenter;
+            //excelCells.HorizontalAlignment = Excel.Constants.xlCenter;
+            //excelCells.Borders.Weight = Excel.XlBorderWeight.xlThick;
+            //excelCells.Value2 = "AgeAtExp";
+
+            ////Описываем ячейку В1 на странице
+            //excelCells = excelWorksheet.get_Range("B1");
+            //excelCells.VerticalAlignment = Excel.Constants.xlCenter;
+            //excelCells.HorizontalAlignment = Excel.Constants.xlCenter;
+            //excelCells.Borders.Weight = Excel.XlBorderWeight.xlThick;
+            ////if (larRB.Checked)
+            //    excelCells.Value2 = "LAR";
+            ////else if (detRB.Checked)
+            ////    excelCells.Value2 = "Det";
+
+            ////Вывод в столбцы
+            //for (int i = 2; i <= resultList.Count + 1; i++)
+            //{
+            //    excelCells = (Excel.Range)excelWorksheet.Cells[i, "A"];
+            //    excelCells.Value2 = keyList[i - 2];
+            //    excelCells.Borders.ColorIndex = 1;
+            //    excelCells = (Excel.Range)excelWorksheet.Cells[i, "B"];
+            //    excelCells.Value2 = resultList[keyList[i - 2]];
+            //    excelCells.Borders.ColorIndex = 1;
             //}
 
-            excelWorkbook.SaveAs(@Path.GetDirectoryName(Application.ExecutablePath) + "\\" + saveAs + "(" + new string(timeNameBuffer) + ").xlsx",  //object Filename
-                    Excel.XlFileFormat.xlOpenXMLWorkbook,                       //object FileFormat
-                    Type.Missing,                       //object Password 
-                    Type.Missing,                       //object WriteResPassword  
-                    Type.Missing,                       //object ReadOnlyRecommended
-                    Type.Missing,                       //object CreateBackup
-                    Excel.XlSaveAsAccessMode.xlNoChange,//XlSaveAsAccessMode AccessMode
-                    Type.Missing,                       //object ConflictResolution
-                    Type.Missing,                       //object AddToMru 
-                    Type.Missing,                       //object TextCodepage
-                    Type.Missing,                       //object TextVisualLayout
-                    Type.Missing);                      //object Local
-            excelApp.Quit();
+            //char[] timeNameBuffer = DateTime.Now.ToString().ToCharArray();
+            //for (int i = 0; i < timeNameBuffer.Length; i++)
+            //{
+            //    if (timeNameBuffer[i] == ':')
+            //        timeNameBuffer[i] = '-';
+            //}
+
+            //String saveAs = "";
+            ////if (larRB.Checked)
+            //{
+            //    if (externalRB.Checked)
+            //        saveAs = sexName + " внешнее (LAR)";
+            //    if (internalRB.Checked)
+            //        saveAs = sexName + " внутреннее (LAR)";
+            //}
+            ////if (detRB.Checked)
+            ////{
+            ////    if (externalRB.Checked)
+            ////        saveAs = sexName + " внешнее (Det)";
+            ////    if (internalRB.Checked)
+            ////        saveAs = sexName + " внутреннее (Det)";
+            ////}
+
+            //excelWorkbook.SaveAs(@Path.GetDirectoryName(Application.ExecutablePath) + "\\" + saveAs + "(" + new string(timeNameBuffer) + ").xlsx",  //object Filename
+            //        Excel.XlFileFormat.xlOpenXMLWorkbook,                       //object FileFormat
+            //        Type.Missing,                       //object Password 
+            //        Type.Missing,                       //object WriteResPassword  
+            //        Type.Missing,                       //object ReadOnlyRecommended
+            //        Type.Missing,                       //object CreateBackup
+            //        Excel.XlSaveAsAccessMode.xlNoChange,//XlSaveAsAccessMode AccessMode
+            //        Type.Missing,                       //object ConflictResolution
+            //        Type.Missing,                       //object AddToMru 
+            //        Type.Missing,                       //object TextCodepage
+            //        Type.Missing,                       //object TextVisualLayout
+            //        Type.Missing);                      //object Local
+            //excelApp.Quit();
         }
 
         private void minAgeBox_TextChanged(object sender, EventArgs e)

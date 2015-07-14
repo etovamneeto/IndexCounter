@@ -15,3 +15,11 @@ C:\Users\Sergey\Desktop\IndexCounter\IndexCounter\IndexCounter\obj\x86\Debug\Ind
 C:\Users\Sergey\Desktop\IndexCounter\IndexCounter\IndexCounter\obj\x86\Debug\IndexCounter.Form1.resources
 C:\Users\Sergey\Desktop\IndexCounter\IndexCounter\IndexCounter\obj\x86\Debug\IndexCounter.Properties.Resources.resources
 C:\Users\Sergey\Desktop\IndexCounter\IndexCounter\IndexCounter\obj\x86\Debug\IndexCounter.csproj.GenerateResource.Cache
+C:\Users\lovachev\Desktop\IndexCounter\IndexCounter\IndexCounter\obj\x86\Debug\IndexCounter.exe
+C:\Users\lovachev\Desktop\IndexCounter\IndexCounter\IndexCounter\obj\x86\Debug\IndexCounter.pdb
+C:\Users\lovachev\Desktop\IndexCounter\IndexCounter\IndexCounter\bin\Debug\IndexCounter.exe
+C:\Users\lovachev\Desktop\IndexCounter\IndexCounter\IndexCounter\bin\Debug\IndexCounter.pdb
+C:\Users\lovachev\Desktop\IndexCounter\IndexCounter\IndexCounter\obj\x86\Debug\IndexCounter.csprojResolveAssemblyReference.cache
+C:\Users\lovachev\Desktop\IndexCounter\IndexCounter\IndexCounter\obj\x86\Debug\IndexCounter.Form1.resources
+C:\Users\lovachev\Desktop\IndexCounter\IndexCounter\IndexCounter\obj\x86\Debug\IndexCounter.Properties.Resources.resources
+C:\Users\lovachev\Desktop\IndexCounter\IndexCounter\IndexCounter\obj\x86\Debug\IndexCounter.csproj.GenerateResource.Cache
