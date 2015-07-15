@@ -66,9 +66,9 @@
             // 
             this.getLarButton.Location = new System.Drawing.Point(94, 147);
             this.getLarButton.Name = "getLarButton";
-            this.getLarButton.Size = new System.Drawing.Size(107, 30);
+            this.getLarButton.Size = new System.Drawing.Size(107, 39);
             this.getLarButton.TabIndex = 2;
-            this.getLarButton.Text = "Получить LAR";
+            this.getLarButton.Text = "Получить LAR (Det)";
             this.getLarButton.UseVisualStyleBackColor = true;
             this.getLarButton.Click += new System.EventHandler(this.getLarButton_Click);
             // 
