@@ -104,21 +104,21 @@ namespace IndexCounter
                     {
                         resultList.Add(listOfDoseHistories[i][0].AgeAtExposure, calculator.getLAR(false, true).AllCancers);
                     }
-                    else if (detRB.Checked)
+                    if (detRB.Checked)
                     {
                         calculator.createEARSamples(0, ref isIncidence);
                         resultList.Add(listOfDoseHistories[i][0].AgeAtExposure, calculator.getDetriment().Value.AllCancers);
                     }
                     sheetName = sexName + " Внешнее";
                 }
-                else if (internalRB.Checked)
+                if (internalRB.Checked)
                 {
                     RiskCalculatorLib.RiskCalculator calculator = new RiskCalculatorLib.RiskCalculator(sex, listOfDoseHistories[i][0].AgeAtExposure, ref record, true);
                     if (larRB.Checked)
                     {
                         resultList.Add(listOfDoseHistories[i][0].AgeAtExposure, calculator.getLAR(false, true).Lung);
                     }
-                    else if (detRB.Checked)
+                    if (detRB.Checked)
                     {
                         calculator.createEARSamples(0, ref isIncidence);
                         resultList.Add(listOfDoseHistories[i][0].AgeAtExposure, calculator.getDetriment().Value.Lung);
