@@ -102,7 +102,7 @@ namespace IndexCounter
                     RiskCalculatorLib.RiskCalculator calculator = new RiskCalculatorLib.RiskCalculator(sex, listOfDoseHistories[i][0].AgeAtExposure, ref record, true);
                     if (larRB.Checked)
                     {
-                        resultList.Add(listOfDoseHistories[i][0].AgeAtExposure, calculator.getLAR(false, true).AllCancers);
+                        resultList.Add(listOfDoseHistories[i][0].AgeAtExposure, calculator.getLAR(false, isIncidence).AllCancers);
                     }
                     if (detRB.Checked)
                     {
@@ -116,7 +116,7 @@ namespace IndexCounter
                     RiskCalculatorLib.RiskCalculator calculator = new RiskCalculatorLib.RiskCalculator(sex, listOfDoseHistories[i][0].AgeAtExposure, ref record, true);
                     if (larRB.Checked)
                     {
-                        resultList.Add(listOfDoseHistories[i][0].AgeAtExposure, calculator.getLAR(false, true).Lung);
+                        resultList.Add(listOfDoseHistories[i][0].AgeAtExposure, calculator.getLAR(false, isIncidence).Lung);
                     }
                     if (detRB.Checked)
                     {
