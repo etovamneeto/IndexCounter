@@ -80,7 +80,7 @@ namespace IndexCounter
                 listOfDoseHistories[i][0].AgeAtExposure = Convert.ToInt16(Convert.ToInt32(minAgeBox.Text) + i);
                 listOfDoseHistories[i][0].AllSolidDoseInmGy = 1000;
                 listOfDoseHistories[i][0].LeukaemiaDoseInmGy = 1000;
-                listOfDoseHistories[i][0].LungDoseInmGy = 1000 / wLung;
+                listOfDoseHistories[i][0].LungDoseInmGy = 0 / wLung;
             }
 
             //RiskCalculator.DoseHistoryRecord[] recordTest = listOfDoseHistories[0];
